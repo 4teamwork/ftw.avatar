@@ -6,6 +6,7 @@ version = '1.0.0.dev0'
 
 
 tests_require = [
+    'ftw.builder',
     'ftw.testbrowser',
     'unittest2',
     ]
@@ -38,6 +39,7 @@ setup(name='ftw.avatar',
 
       install_requires=[
         'setuptools',
+        'Pillow',
         ],
 
       tests_require=tests_require,
