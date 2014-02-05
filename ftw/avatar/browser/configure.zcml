@@ -1,0 +1,18 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="ftw.avatar">
+
+    <browser:page
+        for="plone.app.linkintegrity.interfaces.IOFSImage"
+        name="index_html"
+        class=".portrait.PortraitScalingView"
+        permission="zope2.View"
+        />
+
+    <browser:defaultView
+        for="plone.app.linkintegrity.interfaces.IOFSImage"
+        name="index_html"
+        />
+
+</configure>
