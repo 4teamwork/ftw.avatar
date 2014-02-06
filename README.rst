@@ -9,9 +9,7 @@ Installation
 ------------
 
 Simply install the ``ftw.avatar`` egg by adding it to the dependencies in your package
-or by adding it to your buildout configuration:
-
-.. code:: ini
+or by adding it to your buildout configuration::
 
     [instance]
     eggs +=
