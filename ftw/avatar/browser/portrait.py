@@ -17,7 +17,6 @@ class PortraitScalingView(BrowserView):
         else:
             size = int(size)
 
-
         if not IAttributeAnnotatable.providedBy(self.context):
             alsoProvides(self.context, IAttributeAnnotatable)
 
