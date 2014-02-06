@@ -8,7 +8,10 @@ version = '1.0.0.dev0'
 tests_require = [
     'ftw.builder',
     'ftw.testbrowser',
+    'plone.app.testing',
+    'transaction',
     'unittest2',
+    'zope.configuration',
     ]
 
 
@@ -39,8 +42,16 @@ setup(name='ftw.avatar',
       zip_safe=False,
 
       install_requires=[
-        'setuptools',
+        'AccessControl',
         'Pillow',
+        'Products.CMFCore',
+        'Products.PlonePAS',
+        'Zope2',
+        'plone.scale',
+        'setuptools',
+        'zope.annotation',
+        'zope.component',
+        'zope.interface',
         ],
 
       tests_require=tests_require,
