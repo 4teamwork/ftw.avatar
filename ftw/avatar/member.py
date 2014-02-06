@@ -10,7 +10,7 @@ def get_name_of_user(userid):
     portal = getSite()
     membership = getToolByName(portal, 'portal_membership')
     member = membership.getMemberById(userid)
-    return member.getProperty('fullname', None)
+    return member.getProperty('fullname', None) or userid
 
 
 def user_has_portrait(userid):

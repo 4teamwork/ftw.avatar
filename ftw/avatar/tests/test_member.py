@@ -4,6 +4,7 @@ from ftw.avatar.member import get_name_of_user
 from ftw.avatar.testing import AVATAR_FUNCTIONAL_TESTING
 from ftw.builder import Builder
 from ftw.builder import create
+from plone.app.testing import SITE_OWNER_NAME
 from unittest2 import TestCase
 import hashlib
 
@@ -14,6 +15,9 @@ class TestCreateDefaultAvatar(TestCase):
     def test_name_of_user(self):
         user = create(Builder('user').named('Hugo', 'Boss'))
         self.assertEquals('Boss Hugo', get_name_of_user(user.getId()))
+
+    def test_name_of_user_with_no_fullname(self):
+        self.assertEquals('admin', get_name_of_user(SITE_OWNER_NAME))
 
     def test_creates_default_avatar_for_users_without_avatar(self):
         hugo = create(Builder('user').named('Hugo', 'Boss'))
