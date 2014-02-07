@@ -22,11 +22,13 @@ class DefaultAvatarGenerator(object):
     square_size = 220
 
     def generate(self, name, output_stream):
-        if INSTALLED_IMAGINGFT:
-            image = Image.new('RGBA', (self.square_size, self.square_size),
-                              self.background_color())
-            self.draw_text(image, self.text(name), self.font())
-            image.save(output_stream, 'PNG')
+        if not INSTALLED_IMAGINGFT:
+            return False
+        image = Image.new('RGBA', (self.square_size, self.square_size),
+                          self.background_color())
+        self.draw_text(image, self.text(name), self.font())
+        image.save(output_stream, 'PNG')
+        return True
 
     def text(self, name):
         """Returns the text to draw.
