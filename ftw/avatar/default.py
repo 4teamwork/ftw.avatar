@@ -2,9 +2,17 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 from ftw.avatar.interfaces import IAvatarGenerator
+from ftw.avatar.patches import LOGGER
 from random import random
 from zope.interface import implements
 import os.path
+
+
+try:
+    import _imagingft as INSTALLED_IMAGINGFT
+except ImportError:
+    INSTALLED_IMAGINGFT = None
+    LOGGER.error("The _imagingft C module is not installed")
 
 
 class DefaultAvatarGenerator(object):
@@ -14,10 +22,11 @@ class DefaultAvatarGenerator(object):
     square_size = 220
 
     def generate(self, name, output_stream):
-        image = Image.new('RGBA', (self.square_size, self.square_size),
-                          self.background_color())
-        self.draw_text(image, self.text(name), self.font())
-        image.save(output_stream, 'PNG')
+        if INSTALLED_IMAGINGFT:
+            image = Image.new('RGBA', (self.square_size, self.square_size),
+                              self.background_color())
+            self.draw_text(image, self.text(name), self.font())
+            image.save(output_stream, 'PNG')
 
     def text(self, name):
         """Returns the text to draw.

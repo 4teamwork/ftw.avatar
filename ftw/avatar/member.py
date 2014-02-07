@@ -30,6 +30,9 @@ def create_default_avatar(userid):
     portrait.seek(0)
     setattr(portrait, 'filename', 'default.png')
 
+    if not portrait.len:
+        return
+
     portal = getSite()
     membership = getToolByName(portal, 'portal_membership')
     with SwitchedToSystemUser():

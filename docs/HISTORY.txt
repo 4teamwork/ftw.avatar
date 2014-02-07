@@ -5,7 +5,9 @@ Changelog
 1.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Do not try to generate the image if _imagingft is not installed.
+  Log an error instead.
+  [Julian Infanger]
 
 
 1.0.0 (2014-02-06)
