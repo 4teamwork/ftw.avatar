@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.0.1 (unreleased)
+1.0.1 (2014-02-07)
 ------------------
 
 - Do not try to generate the image if _imagingft is not installed.
