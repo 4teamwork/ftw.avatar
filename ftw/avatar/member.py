@@ -26,7 +26,9 @@ def create_default_avatar(userid):
         return
 
     portrait = StringIO()
-    getUtility(IAvatarGenerator).generate(get_name_of_user(userid), portrait)
+    generator = getUtility(IAvatarGenerator)
+    if not generator.generate(get_name_of_user(userid), portrait):
+        return
     portrait.seek(0)
     setattr(portrait, 'filename', 'default.png')
 
