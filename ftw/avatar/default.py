@@ -1,8 +1,8 @@
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
+from ftw.avatar import LOGGER
 from ftw.avatar.interfaces import IAvatarGenerator
-from ftw.avatar.patches import LOGGER
 from random import random
 from zope.interface import implements
 import os.path

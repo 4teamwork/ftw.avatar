@@ -1,8 +1,6 @@
 from ftw.avatar.member import create_default_avatar
-import logging
+from ftw.avatar import LOGGER
 
-
-LOGGER = logging.getLogger('ftw.avatar')
 MEMBER_IMAGE_SCALE = (300, 300)
 
 
