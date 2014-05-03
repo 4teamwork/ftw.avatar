@@ -14,7 +14,8 @@ if core.__class__ is _imagingft_not_installed:
     FREETYPE_MISSING = (
         'The "_imagingft" C module is not installed, '
         ' which is part of "freetype".'
-        ' Install the freetype library and reinstall Pillow with freetype support.'
+        ' Install the freetype library and reinstall Pillow with'
+        ' freetype support.'
         ' The avatar generation is disabled now.')
     LOGGER.error(FREETYPE_MISSING)
 else:
