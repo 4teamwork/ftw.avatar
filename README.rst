@@ -18,6 +18,19 @@ or by adding it to your buildout configuration::
 There is no need to install the addon in the Plone site, it automatically hooks in.
 
 
+Dependencies
+------------
+
+Generating avatars requires a `Pillow`_ (or PIL) installation with `freetype`_ support.
+
+``freetype`` can easily be installed on OS X with `homebrew`_::
+
+    $ brew install freetype
+
+After installing ``freetype`` Pillow may need to be rebuilt.
+
+
+
 
 Default avatar generation
 -------------------------
@@ -92,3 +105,7 @@ Copyright
 This package is copyright by `4teamwork <http://www.4teamwork.ch/>`_.
 
 ``ftw.avatar`` is licensed under GNU General Public License, version 2.
+
+.. _Pillow: http://pillow.readthedocs.org/
+.. _freetype: http://www.freetype.org/
+.. _homebrew: http://brew.sh/
