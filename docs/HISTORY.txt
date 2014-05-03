@@ -5,7 +5,8 @@ Changelog
 1.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix _imagingft check to support Pillow >= 2.1.0, where imports have changed.
+  [jone]
 
 
 1.0.1 (2014-02-07)

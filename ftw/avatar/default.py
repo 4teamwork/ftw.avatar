@@ -8,11 +8,17 @@ from zope.interface import implements
 import os.path
 
 
-try:
-    import _imagingft as INSTALLED_IMAGINGFT
-except ImportError:
-    INSTALLED_IMAGINGFT = None
-    LOGGER.error("The _imagingft C module is not installed")
+from PIL.ImageFont import _imagingft_not_installed
+from PIL.ImageFont import core
+if core.__class__ is _imagingft_not_installed:
+    FREETYPE_MISSING = (
+        'The "_imagingft" C module is not installed, '
+        ' which is part of "freetype".'
+        ' Install the freetype library and reinstall Pillow with freetype support.'
+        ' The avatar generation is disabled now.')
+    LOGGER.error(FREETYPE_MISSING)
+else:
+    FREETYPE_MISSING = False
 
 
 class DefaultAvatarGenerator(object):
@@ -22,7 +28,7 @@ class DefaultAvatarGenerator(object):
     square_size = 220
 
     def generate(self, name, output_stream):
-        if not INSTALLED_IMAGINGFT:
+        if FREETYPE_MISSING:
             return False
         image = Image.new('RGBA', (self.square_size, self.square_size),
                           self.background_color())

@@ -4,16 +4,24 @@ print 'This script generates an avatar for the whole alphabet' + \
     ' with the default avatar generator.'
 print ''
 
+from time import time
+import os
+import sys
+
+
 try:
     from ftw.avatar.default import DefaultAvatarGenerator
 except ImportError, exc:
     print 'ImportError:', str(exc)
     print 'Please run the script with ./bin/zopepy test-generate-avatars.py'
-    import sys
     sys.exit(1)
 
-from time import time
-import os
+
+from ftw.avatar.default import FREETYPE_MISSING
+if FREETYPE_MISSING:
+    print 'FAILURE: {0}'.format(FREETYPE_MISSING)
+    sys.exit(1)
+
 
 def names():
     for firstname in map(chr, range(97, 97+26)):
