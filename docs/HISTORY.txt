@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.0.2 (unreleased)
+1.0.2 (2014-05-03)
 ------------------
 
 - Fix _imagingft check to support Pillow >= 2.1.0, where imports have changed.
