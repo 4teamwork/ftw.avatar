@@ -6,6 +6,18 @@ from zope.component import getUtility
 from zope.component.hooks import getSite
 
 
+def get_user_id(userid):
+    portal = getSite()
+    membership = getToolByName(portal, 'portal_membership')
+    member = membership.getMemberById(userid)
+
+    if member is None:
+        acl_users = getToolByName(portal, 'acl_users')
+        user = acl_users.getUser(userid)
+        userid = user.getId()
+    return userid
+
+
 def get_name_of_user(userid):
     portal = getSite()
     membership = getToolByName(portal, 'portal_membership')
@@ -22,6 +34,7 @@ def user_has_portrait(userid):
 
 
 def create_default_avatar(userid):
+    userid = get_user_id(userid)
     if user_has_portrait(userid):
         return
 
