@@ -22,10 +22,11 @@ class TestCreateDefaultAvatar(TestCase):
     def test_name_of_user_with_no_fullname(self):
         self.assertEquals('admin', get_name_of_user(SITE_OWNER_NAME))
 
-
     def test_get_user_id_by_username(self):
         self.assertEquals(TEST_USER_ID, get_user_id(TEST_USER_NAME))
 
+    def test_get_user_id_of_unkown_user(self):
+        self.assertEquals(None, get_user_id('unkown'))
 
     def test_name_of_user_with_different_loginname(self):
         """Background: Plone sometimes treads username as userid, but it's

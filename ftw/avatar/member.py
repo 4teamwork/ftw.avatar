@@ -11,11 +11,15 @@ def get_user_id(userid):
     membership = getToolByName(portal, 'portal_membership')
     member = membership.getMemberById(userid)
 
-    if member is None:
-        acl_users = getToolByName(portal, 'acl_users')
-        user = acl_users.getUser(userid)
-        userid = user.getId()
-    return userid
+    if member:
+        return member.getId()
+
+    acl_users = getToolByName(portal, 'acl_users')
+    user = acl_users.getUser(userid)
+    if user:
+        return user.getId()
+
+    return None
 
 
 def get_name_of_user(userid):
