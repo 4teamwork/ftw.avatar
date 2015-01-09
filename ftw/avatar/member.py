@@ -26,6 +26,8 @@ def get_name_of_user(userid):
     portal = getSite()
     membership = getToolByName(portal, 'portal_membership')
     member = membership.getMemberById(userid)
+    if not member:
+        return userid
     return member.getProperty('fullname', None) or userid
 
 
