@@ -37,6 +37,9 @@ class TestCreateDefaultAvatar(TestCase):
         self.assertEquals(TEST_USER_ID,
                           get_name_of_user(get_user_id(TEST_USER_NAME)))
 
+    def test_get_name_of_user_which_does_not_exist(self):
+        self.assertEquals('unkown.user', get_name_of_user('unkown.user'))
+
     def test_creates_default_avatar_for_users_without_avatar(self):
         hugo = create(Builder('user').named('Hugo', 'Boss'))
         self.assertEquals(None, self.portrait_md5(hugo.getId()))
