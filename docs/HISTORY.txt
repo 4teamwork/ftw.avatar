@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.0.6 (unreleased)
+1.0.6 (2015-03-09)
 ------------------
 
 - Fix error when portrait is stored as Pdata object.
