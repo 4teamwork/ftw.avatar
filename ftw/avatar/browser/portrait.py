@@ -1,6 +1,7 @@
-from Products.Five.browser import BrowserView
+from OFS.Image import Pdata
 from plone.scale.scale import scaleImage
 from plone.scale.storage import AnnotationStorage
+from Products.Five.browser import BrowserView
 from webdav.common import rfc1123_date
 from zope.annotation import IAttributeAnnotatable
 from zope.interface import alsoProvides
@@ -33,4 +34,7 @@ class PortraitScalingView(BrowserView):
         return scale['data']
 
     def scale_factory(self, **parameters):
-        return scaleImage(self.context.data, **parameters)
+        portrait = self.context.data
+        if isinstance(portrait, Pdata):
+            portrait = str(portrait)
+        return scaleImage(portrait, **parameters)
