@@ -1,6 +1,3 @@
-from PIL import Image
-from Products.CMFCore.utils import getToolByName
-from StringIO import StringIO
 from ftw.avatar.interfaces import IAvatarGenerator
 from ftw.avatar.testing import AVATAR_FUNCTIONAL_TESTING
 from ftw.avatar.utils import SwitchedToSystemUser
@@ -8,6 +5,10 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.testbrowser import browser
 from ftw.testbrowser import browsing
+from OFS.Image import Pdata
+from PIL import Image
+from Products.CMFCore.utils import getToolByName
+from StringIO import StringIO
 from unittest2 import TestCase
 from zope.component import getUtility
 import hashlib
@@ -64,11 +65,26 @@ class TestPortraitScalingView(TestCase):
             hash_before, hash_after,
             'Image scaling cache is not cleared when changing portrait.')
 
+    @browsing
+    def test_pdata_portrait_scaling(self, browser):
+        """Some files are stored as Pdata objects instead of strings.
+        """
+        getToolByName(self.layer['portal'], 'portal_memberdata')._setPortrait(
+            Pdata(self.generate_portrait().getvalue()), self.hugo.getId())
+        transaction.commit()
+
+        browser.visit(self.portrait_url + '?s=100')
+        self.assertTrue(image_hash())
+
     def regenerate_portrait(self):
+        portrait = self.generate_portrait()
+        with SwitchedToSystemUser():
+            self.mtool.changeMemberPortrait(portrait, self.hugo.getId())
+        transaction.commit()
+
+    def generate_portrait(self):
         portrait = StringIO()
         getUtility(IAvatarGenerator).generate('AB', portrait)
         portrait.seek(0)
         setattr(portrait, 'filename', 'default.png')
-        with SwitchedToSystemUser():
-            self.mtool.changeMemberPortrait(portrait, self.hugo.getId())
-        transaction.commit()
+        return portrait
