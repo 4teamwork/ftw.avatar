@@ -94,8 +94,8 @@ Links
 -----
 
 - github project: https://github.com/4teamwork/ftw.avatar
-- Issue tracker: https://github.com/4teamwork/ftw.avatar/issues
-- Package on pypi: http://pypi.python.org/pypi/ftw.avatar
+- Issues: https://github.com/4teamwork/ftw.avatar/issues
+- Pypi: http://pypi.python.org/pypi/ftw.avatar
 - Continuous integration: https://jenkins.4teamwork.ch/search?q=ftw.avatar
 
 
