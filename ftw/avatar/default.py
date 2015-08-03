@@ -43,7 +43,7 @@ class DefaultAvatarGenerator(object):
         if not name:
             return '-'
 
-        words = name.split(' ', 1)
+        words = name.strip().split(' ', 1)
         if len(words) == 1:
             return words[0][:2].upper()
         else:
