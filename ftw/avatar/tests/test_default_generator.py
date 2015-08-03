@@ -34,3 +34,6 @@ class TestDefaultAvatarGenerator(TestCase):
         self.assertEquals(
             [int, int, int],
             map(type, DefaultAvatarGenerator().background_color()))
+
+    def test_text_with_leading_and_trailing_spaces(self):
+        self.assertEquals('HB', DefaultAvatarGenerator().text(' Hugo Boss '))
