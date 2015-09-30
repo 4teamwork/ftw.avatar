@@ -52,6 +52,7 @@ setup(name='ftw.avatar',
         'zope.annotation',
         'zope.component',
         'zope.interface',
+        'Plone',
         ],
 
       tests_require=tests_require,
