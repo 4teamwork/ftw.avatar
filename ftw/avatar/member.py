@@ -1,9 +1,9 @@
-from Products.CMFCore.utils import getToolByName
-from StringIO import StringIO
 from ftw.avatar.interfaces import IAvatarGenerator
 from ftw.avatar.utils import SwitchedToSystemUser
-from zope.component import getUtility
+from Products.CMFCore.utils import getToolByName
+from StringIO import StringIO
 from zope.component.hooks import getSite
+from zope.component import getUtility
 
 
 def get_user_id(userid):
@@ -22,15 +22,6 @@ def get_user_id(userid):
     return None
 
 
-def get_name_of_user(userid):
-    portal = getSite()
-    membership = getToolByName(portal, 'portal_membership')
-    member = membership.getMemberById(userid)
-    if not member:
-        return userid
-    return member.getProperty('fullname', None) or userid
-
-
 def user_has_portrait(userid):
     portal = getSite()
     membership = getToolByName(portal, 'portal_membership')
@@ -46,7 +37,7 @@ def create_default_avatar(userid):
 
     portrait = StringIO()
     generator = getUtility(IAvatarGenerator)
-    if not generator.generate(get_name_of_user(userid), portrait):
+    if not generator.generate(userid, portrait):
         return
     portrait.seek(0)
     setattr(portrait, 'filename', 'default.png')

@@ -1,9 +1,11 @@
+from ftw.avatar.interfaces import IAvatarGenerator
+from ftw.avatar import LOGGER
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
-from ftw.avatar import LOGGER
-from ftw.avatar.interfaces import IAvatarGenerator
+from Products.CMFCore.utils import getToolByName
 from random import random
+from zope.component.hooks import getSite
 from zope.interface import implements
 import os.path
 
@@ -28,20 +30,30 @@ class DefaultAvatarGenerator(object):
     # The resulting image size (square_size * square_size)
     square_size = 220
 
-    def generate(self, name, output_stream):
+    def generate(self, userid, output_stream):
         if FREETYPE_MISSING:
             return False
         image = Image.new('RGBA', (self.square_size, self.square_size),
                           self.background_color())
-        self.draw_text(image, self.text(name), self.font())
+        self.draw_text(image, self.text(userid), self.font())
         image.save(output_stream, 'PNG')
         return True
 
-    def text(self, name):
+    def get_name_of_user(self, userid):
+        portal = getSite()
+        membership = getToolByName(portal, 'portal_membership')
+        member = membership.getMemberById(userid)
+        if not member:
+            return userid
+        return member.getProperty('fullname', None) or userid
+
+    def text(self, userid):
         """Returns the text to draw.
         """
-        if not name:
+        if not userid:
             return '-'
+
+        name = self.get_name_of_user(userid)
 
         words = name.strip().split(' ', 1)
         if len(words) == 1:
