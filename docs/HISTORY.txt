@@ -2,10 +2,13 @@ Changelog
 =========
 
 
-1.0.8 (unreleased)
+2.0.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Changed utility method IAvatarGenerator.generate to take userid instead of full name.
+  This makes the utility more flexible while overwriting because the user can now
+  be identified accurately.
+  [lknoepfel]
 
 
 1.0.7 (2015-09-02)

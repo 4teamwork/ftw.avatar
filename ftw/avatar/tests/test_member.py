@@ -1,10 +1,8 @@
 from ftw.avatar.member import create_default_avatar
-from ftw.avatar.member import get_name_of_user
 from ftw.avatar.member import get_user_id
 from ftw.avatar.testing import AVATAR_FUNCTIONAL_TESTING
 from ftw.builder import Builder
 from ftw.builder import create
-from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from Products.CMFCore.utils import getToolByName
@@ -15,30 +13,11 @@ import hashlib
 class TestCreateDefaultAvatar(TestCase):
     layer = AVATAR_FUNCTIONAL_TESTING
 
-    def test_name_of_user(self):
-        user = create(Builder('user').named('Hugo', 'Boss'))
-        self.assertEquals('Boss Hugo', get_name_of_user(user.getId()))
-
-    def test_name_of_user_with_no_fullname(self):
-        self.assertEquals('admin', get_name_of_user(SITE_OWNER_NAME))
-
     def test_get_user_id_by_username(self):
         self.assertEquals(TEST_USER_ID, get_user_id(TEST_USER_NAME))
 
     def test_get_user_id_of_unkown_user(self):
         self.assertEquals(None, get_user_id('unkown'))
-
-    def test_name_of_user_with_different_loginname(self):
-        """Background: Plone sometimes treads username as userid, but it's
-           possible that the username (loginname) differes from the userid.
-           For example plone.discussion is bugy until 2.3.2, it passes the
-           username as userid, which is completly wrong.
-        """
-        self.assertEquals(TEST_USER_ID,
-                          get_name_of_user(get_user_id(TEST_USER_NAME)))
-
-    def test_get_name_of_user_which_does_not_exist(self):
-        self.assertEquals('unkown.user', get_name_of_user('unkown.user'))
 
     def test_creates_default_avatar_for_users_without_avatar(self):
         hugo = create(Builder('user').named('Hugo', 'Boss'))
