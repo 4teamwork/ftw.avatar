@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.0.0 (unreleased)
+2.0.0 (2016-06-01)
 ------------------
 
 - Changed utility method IAvatarGenerator.generate to take userid instead of full name.
