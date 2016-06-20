@@ -10,7 +10,7 @@ def apply_patches():
 
 
 def apply_member_image_scale_patch():
-    LOGGER.info('Patching maxmimum member scale in Products.PlonePAS.config'
+    LOGGER.info('Patching maximum member scale in Products.PlonePAS.config'
                 ' to %s' % str(MEMBER_IMAGE_SCALE))
     from Products.PlonePAS import config
     config.MEMBER_IMAGE_SCALE = MEMBER_IMAGE_SCALE
