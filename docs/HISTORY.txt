@@ -5,7 +5,9 @@ Changelog
 2.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix aggressive caching of the portrait image by not considering the modified
+  date because the OFS image does not have one (is acquired instead).
+  [mbaechtold]
 
 
 2.0.0 (2016-06-01)
