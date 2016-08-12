@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.0.1 (unreleased)
+2.0.1 (2016-08-12)
 ------------------
 
 - Fix aggressive caching of the portrait image by not considering the modified
