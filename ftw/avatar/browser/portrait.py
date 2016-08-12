@@ -21,7 +21,7 @@ class PortraitScalingView(BrowserView):
         if not IAttributeAnnotatable.providedBy(self.context):
             alsoProvides(self.context, IAttributeAnnotatable)
 
-        storage = AnnotationStorage(self.context, self.context.modified)
+        storage = AnnotationStorage(self.context)
         scale = storage.scale(self.scale_factory,
                               width=size,
                               height=size)
