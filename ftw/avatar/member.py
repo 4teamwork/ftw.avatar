@@ -2,8 +2,18 @@ from ftw.avatar.interfaces import IAvatarGenerator
 from ftw.avatar.utils import SwitchedToSystemUser
 from Products.CMFCore.utils import getToolByName
 from StringIO import StringIO
-from zope.component.hooks import getSite
 from zope.component import getUtility
+from zope.component.hooks import getSite
+from zope.globalrequest import getRequest
+from zope.interface import alsoProvides
+
+
+try:
+    from plone.protect.interfaces import IDisableCSRFProtection
+except ImportError:
+    DISABLE_CSRF = False
+else:
+    DISABLE_CSRF = True
 
 
 def get_user_id(userid):
@@ -45,4 +55,7 @@ def create_default_avatar(userid):
     portal = getSite()
     membership = getToolByName(portal, 'portal_membership')
     with SwitchedToSystemUser():
+        if DISABLE_CSRF:
+            alsoProvides(getRequest(), IDisableCSRFProtection)
+
         membership.changeMemberPortrait(portrait, id=userid)
