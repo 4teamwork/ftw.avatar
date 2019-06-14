@@ -7,4 +7,9 @@
     <utility factory=".default.DefaultAvatarGenerator"
              provides="ftw.avatar.interfaces.IAvatarGenerator" />
 
+    <subscriber
+      for="Products.PluggableAuthService.interfaces.events.IUserLoggedInEvent"
+      handler=".handlers.check_avatar"
+    />
+
 </configure>

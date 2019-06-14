@@ -8,9 +8,11 @@ from ftw.testbrowser import browsing
 from OFS.Image import Pdata
 from PIL import Image
 from Products.CMFCore.utils import getToolByName
+from Products.PlonePAS.events import UserLoggedInEvent
 from StringIO import StringIO
 from unittest2 import TestCase
 from zope.component import getUtility
+from zope.event import notify
 import hashlib
 import transaction
 
@@ -29,6 +31,7 @@ class TestPortraitScalingView(TestCase):
 
     def setUp(self):
         self.hugo = create(Builder('user').named('Hugo', 'Boss'))
+        notify(UserLoggedInEvent(self.hugo))
         self.mtool = getToolByName(self.layer['portal'], 'portal_membership')
         self.portrait = self.mtool.getPersonalPortrait(self.hugo.getId())
         self.portrait_url = self.portrait.absolute_url()
