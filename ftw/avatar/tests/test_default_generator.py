@@ -3,7 +3,7 @@ from ftw.avatar.testing import AVATAR_FUNCTIONAL_TESTING
 from ftw.builder import Builder
 from ftw.builder import create
 from PIL import Image
-from StringIO import StringIO
+from six import BytesIO
 from unittest2 import TestCase
 from zope.component.hooks import getSite
 
@@ -17,7 +17,7 @@ class TestDefaultAvatarGenerator(TestCase):
 
     def test_generates_220x220_image(self):
         user = create(Builder('user').named('Hugo', 'Boss'))
-        output = StringIO()
+        output = BytesIO()
         DefaultAvatarGenerator().generate(user.getId(), output)
         output.seek(0)
         self.assertEquals((220, 220), Image.open(output).size)
@@ -51,7 +51,7 @@ class TestDefaultAvatarGenerator(TestCase):
     def test_background_color_is_valid_color_tuple(self):
         self.assertEquals(
             [int, int, int],
-            map(type, DefaultAvatarGenerator().background_color()))
+            list(map(type, DefaultAvatarGenerator().background_color())))
 
     def test_text_with_leading_and_trailing_spaces(self):
         user = create(Builder('user').named('Foo', 'Bar'))

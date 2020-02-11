@@ -10,3 +10,7 @@ class IAvatarGenerator(Interface):
         ``userid`` and writes to the ``output_stream``, which is expected
         to be a file-like object.
         """
+
+
+class IOFSImage(Interface):
+    """marker interface for OFSImage"""

@@ -1,8 +1,9 @@
+from email.utils import formatdate
 from OFS.Image import Pdata
+from plone.protect.interfaces import IDisableCSRFProtection
 from plone.scale.scale import scaleImage
 from plone.scale.storage import AnnotationStorage
 from Products.Five.browser import BrowserView
-from webdav.common import rfc1123_date
 from zope.annotation import IAttributeAnnotatable
 from zope.interface import alsoProvides
 
@@ -10,6 +11,7 @@ from zope.interface import alsoProvides
 class PortraitScalingView(BrowserView):
 
     def __call__(self):
+        alsoProvides(self.request, IDisableCSRFProtection)
         form = self.request.form
         size = form.get('size', form.get('s', None))
         if size is None:
@@ -27,7 +29,7 @@ class PortraitScalingView(BrowserView):
                               height=size)
 
         response = self.request.RESPONSE
-        response.setHeader('Last-Modified', rfc1123_date(scale['modified']))
+        response.setHeader('Last-Modified', formatdate(timeval=scale['modified'], localtime=False, usegmt=True))
         response.setHeader('Content-Type', scale['mimetype'])
         response.setHeader('Content-Length', len(scale['data']))
         response.setHeader('Accept-Ranges', 'bytes')
@@ -36,5 +38,5 @@ class PortraitScalingView(BrowserView):
     def scale_factory(self, **parameters):
         portrait = self.context.data
         if isinstance(portrait, Pdata):
-            portrait = str(portrait)
+            portrait = bytes(portrait)
         return scaleImage(portrait, **parameters)

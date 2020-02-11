@@ -9,7 +9,7 @@ from OFS.Image import Pdata
 from PIL import Image
 from Products.CMFCore.utils import getToolByName
 from Products.PlonePAS.events import UserLoggedInEvent
-from StringIO import StringIO
+from six import BytesIO
 from unittest2 import TestCase
 from zope.component import getUtility
 from zope.event import notify
@@ -18,7 +18,7 @@ import transaction
 
 
 def image_size():
-    return Image.open(StringIO(browser.contents)).size
+    return Image.open(BytesIO(browser.contents)).size
 
 
 def image_hash():
@@ -86,7 +86,7 @@ class TestPortraitScalingView(TestCase):
         transaction.commit()
 
     def generate_portrait(self):
-        portrait = StringIO()
+        portrait = BytesIO()
         getUtility(IAvatarGenerator).generate('AB', portrait)
         portrait.seek(0)
         setattr(portrait, 'filename', 'default.png')

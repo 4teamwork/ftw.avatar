@@ -1,17 +1,16 @@
-from ftw.avatar.interfaces import IAvatarGenerator
 from ftw.avatar import LOGGER
+from ftw.avatar.interfaces import IAvatarGenerator
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
+from PIL.ImageFont import _imagingft_not_installed
+from PIL.ImageFont import core
 from Products.CMFCore.utils import getToolByName
 from random import random
 from zope.component.hooks import getSite
-from zope.interface import implements
+from zope.interface import implementer
 import os.path
 
-
-from PIL.ImageFont import _imagingft_not_installed
-from PIL.ImageFont import core
 if core.__class__ is _imagingft_not_installed:
     FREETYPE_MISSING = (
         'The "_imagingft" C module is not installed, '
@@ -23,9 +22,9 @@ if core.__class__ is _imagingft_not_installed:
 else:
     FREETYPE_MISSING = False
 
-
+@implementer(IAvatarGenerator)
 class DefaultAvatarGenerator(object):
-    implements(IAvatarGenerator)
+
 
     # The resulting image size (square_size * square_size)
     square_size = 220
