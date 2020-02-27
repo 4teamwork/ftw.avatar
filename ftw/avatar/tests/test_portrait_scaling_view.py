@@ -75,9 +75,10 @@ class TestPortraitScalingView(TestCase):
         getToolByName(self.layer['portal'], 'portal_memberdata')._setPortrait(
             Pdata(self.generate_portrait().getvalue()), self.hugo.getId())
         transaction.commit()
-
-        browser.visit(self.portrait_url + '?s=100')
-        self.assertTrue(image_hash())
+        try:
+            browser.visit(self.portrait_url + '?s=100')
+        except AttributeError:
+            self.fail('See commit 743d243861b40e8a96028574179794d8d9a3372a for more details.')
 
     def regenerate_portrait(self):
         portrait = self.generate_portrait()

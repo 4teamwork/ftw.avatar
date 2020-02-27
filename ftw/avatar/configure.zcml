@@ -14,7 +14,10 @@
 
     <class class="OFS.Image.Image">
         <implements interface=".interfaces.IOFSImage" />
-    
+    </class>
+
+    <class class="OFS.Image.Pdata">
+        <implements interface=".interfaces.IOFSImage" />
     </class>
 
 </configure>
