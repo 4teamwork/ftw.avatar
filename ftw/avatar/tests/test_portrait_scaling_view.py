@@ -9,7 +9,7 @@ from OFS.Image import Pdata
 from PIL import Image
 from Products.CMFCore.utils import getToolByName
 from Products.PlonePAS.events import UserLoggedInEvent
-from StringIO import StringIO
+from six import BytesIO
 from unittest2 import TestCase
 from zope.component import getUtility
 from zope.event import notify
@@ -18,7 +18,7 @@ import transaction
 
 
 def image_size():
-    return Image.open(StringIO(browser.contents)).size
+    return Image.open(BytesIO(browser.contents)).size
 
 
 def image_hash():
@@ -75,9 +75,10 @@ class TestPortraitScalingView(TestCase):
         getToolByName(self.layer['portal'], 'portal_memberdata')._setPortrait(
             Pdata(self.generate_portrait().getvalue()), self.hugo.getId())
         transaction.commit()
-
-        browser.visit(self.portrait_url + '?s=100')
-        self.assertTrue(image_hash())
+        try:
+            browser.visit(self.portrait_url + '?s=100')
+        except AttributeError:
+            self.fail('See commit 743d243861b40e8a96028574179794d8d9a3372a for more details.')
 
     def regenerate_portrait(self):
         portrait = self.generate_portrait()
@@ -86,7 +87,7 @@ class TestPortraitScalingView(TestCase):
         transaction.commit()
 
     def generate_portrait(self):
-        portrait = StringIO()
+        portrait = BytesIO()
         getUtility(IAvatarGenerator).generate('AB', portrait)
         portrait.seek(0)
         setattr(portrait, 'filename', 'default.png')

@@ -1,9 +1,9 @@
 from ftw.avatar.interfaces import IAvatarGenerator
 from ftw.avatar.utils import SwitchedToSystemUser
+from six import BytesIO
 from Products.CMFCore.utils import getToolByName
-from StringIO import StringIO
-from zope.component.hooks import getSite
 from zope.component import getUtility
+from zope.component.hooks import getSite
 
 
 def get_user_id(userid):
@@ -35,7 +35,7 @@ def create_default_avatar(userid):
     if user_has_portrait(userid):
         return
 
-    portrait = StringIO()
+    portrait = BytesIO()
     generator = getUtility(IAvatarGenerator)
     if not generator.generate(userid, portrait):
         return
