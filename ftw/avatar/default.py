@@ -3,7 +3,11 @@ from ftw.avatar.interfaces import IAvatarGenerator
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
-from PIL.ImageFont import _imagingft_not_installed
+
+try:
+    from PIL.ImageFont import _ImagingFtNotInstalled   
+except ImportError:
+    from PIL.ImageFont import _imagingft_not_installed as _ImagingFtNotInstalled
 from PIL.ImageFont import core
 from Products.CMFCore.utils import getToolByName
 from random import random
@@ -11,7 +15,7 @@ from zope.component.hooks import getSite
 from zope.interface import implementer
 import os.path
 
-if core.__class__ is _imagingft_not_installed:
+if core.__class__ is _ImagingFtNotInstalled:
     FREETYPE_MISSING = (
         'The "_imagingft" C module is not installed, '
         ' which is part of "freetype".'
