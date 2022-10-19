@@ -5,7 +5,7 @@ Changelog
 2.2.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Support Pillow 9.2 [instification]
 
 
 2.2.0 (2020-03-03)
